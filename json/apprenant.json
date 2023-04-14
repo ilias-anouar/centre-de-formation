@@ -1,0 +1,86 @@
+[
+  {
+    "name": "mamado",
+    "prenom": "lini",
+    "email": "mamado@gmail.com",
+    "password":"mamado01lini"
+  },
+  {
+    "name": "kamila",
+    "prenom": "lamo",
+    "email": "kamila@gmail.com",
+    "password":"kamila01lamo"
+  },
+  {
+    "name": "oranos",
+    "prenom": "kaja",
+    "email": "oranos@gmail.com",
+    "password":"oranos01kaja"
+  },
+  {
+    "name": "hicham",
+    "prenom": "mapo",
+    "email": "hicham@gmail.com",
+    "password":"hicham01mapo"
+  },
+  {
+    "name": "yasin",
+    "prenom": "ghirban",
+    "email": "yasin@gmail.com",
+    "password":"yasin01ghirban"
+  },
+  {
+    "name": "chiha",
+    "prenom": "malak",
+    "email": "chiha@gmail.com",
+    "password":"chiha01malak"
+  },
+  {
+    "name": "talib",
+    "prenom": "mokbil",
+    "email": "talib@gmail.com",
+    "password":"talib01mokbil"
+  },
+  {
+    "name": "jamal",
+    "prenom": "amokbil",
+    "email": "jamal@gmail.com",
+    "password":"jamal01amokbil"
+  },
+  {
+    "name": "milodi",
+    "prenom": "jasi",
+    "email": "milodi@gmail.com",
+    "password":"milodi01jasi"
+  },
+  {
+    "name": "nano",
+    "prenom": "one",
+    "email": "milodi@gmail.com",
+    "password":"nano01one"
+  },
+  {
+    "name": "jamal",
+    "prenom": "hamo",
+    "email": "jamal@gmail.com",
+    "password":"jamal01hamo"
+  },
+  {
+    "name": "ploma",
+    "prenom": "pija",
+    "email": "ploma@gmail.com",
+    "password":"ploma01pija"
+  },
+  {
+    "name": "tiji",
+    "prenom": "malkom",
+    "email": "tiji@gmail.com",
+    "password":"tiji01malkom"
+  },
+  {
+    "name": "naomi",
+    "prenom": "pitis",
+    "email": "naomi@gmail.com",
+    "password":"naomi01pitis"
+  }
+]
