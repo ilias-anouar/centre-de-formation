@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 14 avr. 2023 à 15:31
+-- Généré le : lun. 17 avr. 2023 à 14:35
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -133,8 +133,24 @@ INSERT INTO `formation_` (`Id_formation_`, `sujet`, `categorie`, `masse_horaire`
 CREATE TABLE `inscription` (
   `Id_session` int(11) NOT NULL,
   `Id_apprenant_` int(11) NOT NULL,
-  `evaluation` varchar(50) DEFAULT NULL 
+  `evaluation` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `inscription`
+--
+
+INSERT INTO `inscription` (`Id_session`, `Id_apprenant_`, `evaluation`) VALUES
+(41, 1, ''),
+(41, 2, ''),
+(41, 3, ''),
+(41, 8, ''),
+(41, 9, ''),
+(41, 10, ''),
+(43, 7, ''),
+(45, 16, ''),
+(46, 17, ''),
+(47, 28, '');
 
 -- --------------------------------------------------------
 
@@ -151,6 +167,22 @@ CREATE TABLE `session` (
   `Id_Formateur` int(11) NOT NULL,
   `Id_formation_` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `session`
+--
+
+INSERT INTO `session` (`Id_session`, `Date_debut`, `Date_fin`, `Places_max`, `Etat`, `Id_Formateur`, `Id_formation_`) VALUES
+(41, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 1, 1),
+(42, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 2, 2),
+(43, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 3, 3),
+(44, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 4, 4),
+(45, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 5, 5),
+(46, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 1, 6),
+(47, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 2, 7),
+(48, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 3, 8),
+(49, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 4, 9),
+(50, '2023-04-17', '2023-04-21', 10, 'en cours dinscription', 5, 10);
 
 --
 -- Index pour les tables déchargées
@@ -215,7 +247,7 @@ ALTER TABLE `formation_`
 -- AUTO_INCREMENT pour la table `session`
 --
 ALTER TABLE `session`
-  MODIFY `Id_session` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_session` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Contraintes pour les tables déchargées
