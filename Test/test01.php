@@ -1,4 +1,6 @@
 <?php
+// -- Afficher l historique des sessions de formation d un formateur donné :
+
 require "../json/connect.php";
 
 $sql = "SELECT *

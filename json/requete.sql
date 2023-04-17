@@ -1,47 +1,39 @@
 -- Afficher les sessions de formation à venir qui ne se chevauchent pas avec une session donnée :
-SELECT
-    *  
-FROM 
-    session
-    
+
+SELECT *
+FROM session
 WHERE
     Date_fin < [Date de début de la session donnée]
     OR Date_debut > [Date de fin de la session donnée];
 
 -- Afficher les sessions de formation à venir avec des places encore disponibles :
-SELECT
-    *
-FROM
-    session
-WHERE
-    Places_max > (
-        SELECT
-            COUNT()
-        FROM
-            inscription
+
+SELECT *
+FROM session
+WHERE Places_max > (
+        SELECT COUNT()
+        FROM inscription
         WHERE
             inscription.Id_session = Identifiant
     )
     AND Etat = 'en cours';
 
 -- Afficher le nombre d'inscrits par session de formation :
+
 SELECT
     Id_session,
     COUNT() AS Nombre_d_inscrits
-FROM
-    inscription
+FROM inscription
     JOIN session ON inscription.Id_session = session.Id_session
-GROUP BY
-    session.Id_session;
+GROUP BY session.Id_session;
 
 -- Afficher l'historique des sessions de formation d'un apprenant donné :
-SELECT
-    Id_session.*
-FROM
-    inscription
+
+SELECT Id_session.*
+FROM inscription
     JOIN session ON inscription.Id_session = session.Id_session
 WHERE
-    inscription.Id_apprenant_ = [Identifiant de l'apprenant donné];
+    inscription.Id_apprenant_ = [Identifiant de l 'apprenant donné];
 
 -- Afficher la liste des sessions qui sont affectées à un formateur donné, triées par date de début :
 SELECT
@@ -53,7 +45,7 @@ WHERE
 ORDER BY
     Date_debut;
 
--- Afficher la liste des apprenants d'une session donnée d'un formateur donné :
+-- Afficher la liste des apprenants d' une session donnée d 'un formateur donné :
 SELECT
     Id_apprenant_.*
 FROM
@@ -64,7 +56,7 @@ WHERE
     AND session.Id_Formateur = [Identifiant du formateur donné];
 
 --  here
--- Afficher l'historique des sessions de formation d'un formateur donné :
+-- Afficher l' historique des sessions de formation d 'un formateur donné :
 SELECT
     session.*
 FROM

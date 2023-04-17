@@ -1,0 +1,52 @@
+[
+  {
+    "Id_session": 41,
+    "Id_apprenant_": 1,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 41,
+    "Id_apprenant_": 2,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 41,
+    "Id_apprenant_": 3,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 43,
+    "Id_apprenant_": 7,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 45,
+    "Id_apprenant_": 16,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 41,
+    "Id_apprenant_": 8,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 41,
+    "Id_apprenant_": 9,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 46,
+    "Id_apprenant_": 17,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 47,
+    "Id_apprenant_": 28,
+    "evaluation": ""
+  },
+  {
+    "Id_session": 41,
+    "Id_apprenant_": 10,
+    "evaluation": ""
+  }
+]
