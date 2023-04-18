@@ -1,5 +1,6 @@
 <?php
 // -- Afficher les sessions de formation à venir avec des places encore disponibles :
+echo "Afficher les sessions de formation à venir avec des places encore disponibles";
 require "../json/connect.php";
 
 $sql = "SELECT *
@@ -8,7 +9,7 @@ WHERE Places_max > (
         SELECT COUNT()
         FROM inscription
         WHERE
-            inscription.Id_session = Identifiant
+            inscription.Id_session = session.Id_session
     )
     AND Etat = 'en cours dinscription'";
 
