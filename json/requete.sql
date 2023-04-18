@@ -3,8 +3,9 @@
 SELECT *
 FROM session
 WHERE
-    Date_fin < [Date de début de la session donnée]
-    OR Date_debut > [Date de fin de la session donnée];
+    Date_fin < [Date de début de la session donnée] OR Date_debut > [Date de fin de la session donnée];
+
+    -- SELECT * FROM session WHERE 2023-04-17 > 2023-06-17 OR 2023-06-17 < 2023-04-17;
 
 -- Afficher les sessions de formation à venir avec des places encore disponibles :
 
@@ -16,7 +17,7 @@ WHERE Places_max > (
         WHERE
             inscription.Id_session = Identifiant
     )
-    AND Etat = 'en cours';
+    AND Etat = 'en cours dinscription';
 
 -- Afficher le nombre d'inscrits par session de formation :
 
@@ -41,28 +42,26 @@ SELECT
 FROM
     session
 WHERE
-    Id_Formateur = [Identifiant du formateur donné]
+    Id_Formateur = 1
 ORDER BY
     Date_debut;
 
--- Afficher la liste des apprenants d' une session donnée d 'un formateur donné :
-SELECT
-    Id_apprenant_.*
-FROM
-    inscription
-    JOIN apprenant_ ON inscription.Id_apprenant_ = apprenant_.Id_apprenant_
-WHERE
-    inscription.Id_session = [Identifiant de la session donnée]
-    AND session.Id_Formateur = [Identifiant du formateur donné];
 
---  here
+
+
+    -- here
+    
+
+
+
+--  done
 -- Afficher l' historique des sessions de formation d 'un formateur donné :
 SELECT
     session.*
 FROM
     session
 WHERE
-    Id_Formateur = [Identifiant du formateur donné];
+    Id_Formateur = 1;
 
 -- Afficher les formateurs qui sont disponibles entre 2 dates :
 SELECT
@@ -79,6 +78,30 @@ WHERE
             Date_fin > [Date de début donnée]
             AND Date_debut < [Date de fin donnée]
     );
+--     SELECT
+--     *
+-- FROM
+--     Formateur
+-- WHERE
+--     Id_Formateur NOT IN (
+--         SELECT
+--             DISTINCT Id_Formateur
+--         FROM
+--             session
+--         WHERE
+--             Date_fin > 2023-04-17
+--             AND Date_debut <2023-06-17
+--     );
+
+
+
+
+
+   -- Afficher l'historique des sessions de formation d'un apprenant donné :
+
+SELECT COUNT(3) FROM inscription WHERE Id_apprenant_ = 1;
+
+
 
 -- Afficher toutes les sessions d une formation donnée :
 SELECT
@@ -86,7 +109,14 @@ SELECT
 FROM
     session
 WHERE
-    Id_Formateur = [Identifiant de la formation donnée];
+    Id_Formateur = 1;
+
+
+
+
+
+
+
 
 -- Afficher le nombre total des sessions par catégorie de formation :
 SELECT
@@ -108,3 +138,19 @@ FROM
     JOIN formation_ ON session.Id_formation_ = formation_.Id_formation_
 GROUP BY
     formation_.categorie;
+
+
+    -- Afficher la liste des apprenants d' une session donnée d 'un formateur donné :
+SELECT
+    Id_apprenant_.*
+FROM
+    inscription
+    JOIN apprenant_ ON inscription.Id_apprenant_ = apprenant_.Id_apprenant_
+WHERE
+    inscription.Id_session = [Identifiant de la session donnée]
+    AND session.Id_Formateur = [Identifiant du formateur donné];
+
+
+
+
+ 
