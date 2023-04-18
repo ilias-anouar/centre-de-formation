@@ -6,7 +6,7 @@ require "../json/connect.php";
 $sql = "SELECT *
 FROM session
 WHERE Places_max > (
-        SELECT COUNT()
+        SELECT COUNT(*)
         FROM inscription
         WHERE
             inscription.Id_session = session.Id_session
