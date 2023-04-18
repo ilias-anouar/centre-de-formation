@@ -6,18 +6,16 @@ require "../json/connect.php";
 $sessions = "SELECT Id_session FROM session";
 $sessions = $conn->query($sessions);
 $sessions = $sessions->fetchAll(PDO::FETCH_ASSOC);
-echo "<pre>";
-var_dump($sessions);
-echo "</pre>";
 
 foreach ($sessions as $session) {
-    $Id_session
-    $sql = "SELECT * FROM inscription JOIN session ON inscription.Id_session = session.Id_session GROUP BY session.Id_session";
+    $Id_session = $session['Id_session'];
+    $sql = "SELECT COUNT(Id_session) FROM inscription WHERE Id_session = $Id_session";
+    $resul = $conn->query($sql);
+    $resul = $resul->fetchAll(PDO::FETCH_ASSOC);
+    echo "<pre>";
+    echo "the number of inscriptions in the session N " . $Id_session . " is " . $resul[0]['COUNT(Id_session)'];
+    // var_dump($resul[0]);
+    echo "</pre>";
 }
 
-// $resul = $conn->query($sql);
-// $resul = $resul->fetchAll(PDO::FETCH_ASSOC);
-// echo "<pre>";
-// var_dump($resul);
-// echo "</pre>";
 ?>
