@@ -86,7 +86,7 @@ SELECT
 FROM
     session
 WHERE
-    Id_Formateur = [Identifiant de la formation donnée];
+    Id_formation = [Identifiant de la formation donnée];
 
 -- Afficher le nombre total des sessions par catégorie de formation :
 SELECT
