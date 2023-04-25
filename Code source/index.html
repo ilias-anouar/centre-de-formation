@@ -21,16 +21,18 @@
     <div class="form_background">
       <div class="form-group form-group--account">
         <h3 class="form-group_title">sign in</h3>
-        <input class="form-group_input" type="email" placeholder="Email"/>
-        <input class="form-group_input" type="password" placeholder="Password"/>
+        <input class="form-group_input" type="email" placeholder="Email" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+        <input class="form-group_input" type="password" placeholder="Password" required="" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{8,16}$">
         <button class="button button--form">Sign in</button>
       </div>
       <div class="form-group form-group--noaccount">
         <h3 class="form-group_title">Sign up</h3>
-        <input class="form-group_input" type="text" placeholder="First Name"/>
-        <input class="form-group_input" type="text" placeholder="last Name"/>
-        <input class="form-group_input" type="email" placeholder="Email"/>
-        <input class="form-group_input" type="password" placeholder="Password"/>
+        <input class="form-group_input" type="text" placeholder="First Name"required="">
+        <input class="form-group_input" type="text" placeholder="last Name"required="">
+        <input class="form-group_input" type="email" placeholder="Email"required=""  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+          <!-- * Pa$$w0rd!  T1s1s@s3cur3 -->
+        <input class="form-group_input" type="password" placeholder="Password"required="" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{8,16}$">
+      
         <button class="button button--form">Sign up</button>
       </div>
     </div>
@@ -47,7 +49,6 @@
   <fieldset class="fieldset">
     <h2>Have an account ?</h2>
     <p>Please sign in to access your account.</p>
-    
     <div class="form_content form_content--noaccount">
       
     </div>
