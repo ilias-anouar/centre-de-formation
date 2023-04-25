@@ -2,10 +2,10 @@
 
 SELECT *
 FROM session
-WHERE
+WHERE Date_debut > now()
     Date_fin < [Date de début de la session donnée] OR Date_debut > [Date de fin de la session donnée];
 
-    -- SELECT * FROM session WHERE 2023-04-17 > 2023-06-17 OR 2023-06-17 < 2023-04-17;
+--    SELECT * FROM session WHERE Date_debut > now() AND (2023-04-17 > 2023-06-17 OR 2023-06-17 < 2023-04-17);
 
 -- Afficher les sessions de formation à venir avec des places encore disponibles :
 
