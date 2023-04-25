@@ -4,7 +4,6 @@
 body {
     background: url('https://i.imgsafe.org/7b90603.png') no-repeat 50% 15%;
     background-size: 150%;
-    color: #fff;
     font-family: Helvetica;
 }
 h2 {
@@ -24,11 +23,12 @@ h2 {
     display: flex;
     flex-direction: row;
     padding: 4rem;
-    background: rgba(0, 0, 0, .6);
+    background: #FFDFD3;
     border-radius: 0.2rem;
     position: relative;
+    color:black;
 }
-.form_content {
+.form_content {  
     margin-bottom: 1rem;
 }
 .form-group {
@@ -36,7 +36,7 @@ h2 {
     opacity: 0;
 }
 .form-group_title {
-    color: #e57b5c;
+    color: #957DAD;
     text-transform: uppercase;
 }
 .form-group_input {
@@ -48,7 +48,7 @@ h2 {
 }
 .form_background {
     border-radius: 0.2rem;
-    background-color: #fff;
+    background-color: #B4DDE3;
     padding: 3rem 2rem;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, .4);
     width: 50%;
@@ -81,7 +81,7 @@ h2 {
 .button {
     text-transform: uppercase;
     padding: 0.6rem 3rem;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
     border-radius: 0.3rem;
     cursor: pointer;
     transition: background 0.2s ease-in;
@@ -92,13 +92,13 @@ h2 {
     background-color: rgba(0, 0, 0, .3);
 }
 .button--form {
-    background: #e57b5c;
+    background: #B4DDE3;
     color: #fff;
     float: right;
     margin-top: 0;
 }
 .button--form:hover {
-    background: #ec9f88;
+    background: #957DAD;
 }
 #noaccount:checked ~ .form_background {
     transform: translate(3rem, -50%);
