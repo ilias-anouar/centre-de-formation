@@ -14,14 +14,14 @@ class User
     $this->prenom = $prenom;
     $this->email = $email;
     $this->password = $password;
+    $hashpass = $this->password($this->password);
+    $this->save($this->name,$this->prenom,$this->email,$hashpass);
   }
 
   public function signin($email, $password)
   {
     $this->email = $email;
     $this->password = $password;
-    $hash_pass = $this->password($this->password);
-    echo $hash_pass;
   }
 
 

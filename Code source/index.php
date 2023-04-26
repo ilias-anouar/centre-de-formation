@@ -1,32 +1,32 @@
 <?php
 require "connect.php";
 include "class.php";
+function test_input($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 if (isset($_POST['sign_up'])) {
   echo "it's working";
-   
-  function test_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
 
- 
-if (isset($_POST ['sign_up'])) {
- 
+
 
   $name = test_input($_POST['name']);
   $prenom = test_input($_POST['prenom']);
   $mail = test_input($_POST['emaile']);
   $password = test_input($_POST['passwrd']);
+
+
+  $signup = new User();
+  $signup->signup($name, $prenom, $mail, $password);
+  echo $signup->signup($name, $prenom, $mail, $password);
+
+
   
-
-      $signup =new User( $name,  $prenom,  $mail,$password);
 }
 
-
-}
 ?>
 
 
