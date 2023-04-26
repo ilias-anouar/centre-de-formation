@@ -15,6 +15,11 @@ public function __construct($name, $prenom,$email, $password) {
   $this->password = $password;
 
 }
+public function password($password)
+{
+    $hashvalue = password_hash($password, PASSWORD_DEFAULT);
+    return $hashvalue;
+}
 
 public function save() {
   $sql = "INSERT INTO `apprenant_` (name,prenom,email, password) VALUES ('$name','$prenom','$email','$password')";
