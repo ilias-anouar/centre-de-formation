@@ -1,6 +1,6 @@
 .sb-sidenav-menu-heading span {
   font-size: 13px;
-  color: #585B5E;
+  color:white;
   font-weight: bold;
 }
 
@@ -107,7 +107,7 @@ a {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   position: relative;
-  color: #b3b3b3;
+  color:white;
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
@@ -135,24 +135,24 @@ a {
 }
 
 .sb-sidenav-dark {
-  background-color: #212529;
-  color: rgba(255, 255, 255, 0.5);
+ 
+  color: white;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-  color: rgba(255, 255, 255, 0.25);
+  color: white;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-  color: rgba(255, 255, 255, 0.25);
+  color: white;
 }
 
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
@@ -167,10 +167,6 @@ a {
   color: #fff;
 }
 
-.sb-sidenav-dark .sb-sidenav-footer {
-  background-color: #343a40;
-}
 
-.nav-link.active {
-}
+
 
