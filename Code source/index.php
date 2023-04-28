@@ -19,12 +19,12 @@ if (isset($_POST['sign_up'])) {
   $password = test_input($_POST['passwrd']);
 
 
-  $signup = new User();
+  $signup = new User(); 
   $signup->signup($name, $prenom, $mail, $password);
   echo $signup->signup($name, $prenom, $mail, $password);
 
 
-  
+
 }
 
 ?>
