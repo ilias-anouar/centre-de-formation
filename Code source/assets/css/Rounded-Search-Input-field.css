@@ -2,12 +2,10 @@
   position: absolute;
   top: 0%;
   left: 50%;
-  transform:  translate(-50%,50%);
+  transform: translate(-50%, 50%);
   background: #2f3640;
   height: 40px;
   border-radius: 40px;
-  padding: 10px;
-
 }
 
 .searchBox:hover > .searchInput {
@@ -16,8 +14,8 @@
 }
 
 .searchBox:hover > .searchButton {
-background: white;
-color : #2f3640;
+  background: white;
+  color: #2f3640;
 }
 
 .searchButton {
@@ -34,22 +32,22 @@ color : #2f3640;
 }
 
 .searchInput {
-  border:none;
+  border: none;
   background: none;
-  outline:none;
-  float:left;
+  outline: none;
+  float: left;
   padding: 0;
   color: white;
   font-size: 16px;
   transition: 0.4s;
-  line-height: 40px;
   width: 0px;
-
+  line-height: 40px;
+  padding-left: 1em;
 }
 
 @media screen and (max-width: 620px) {
-.searchBox:hover > .searchInput {
-  width: 150px;
-  padding: 0 6px;
-}
+  .searchBox:hover > .searchInput {
+    width: 150px;
+    padding: 0 6px;
+  }
 }
