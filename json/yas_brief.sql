@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 17 avr. 2023 à 14:35
+-- Généré le : lun. 01 mai 2023 à 16:42
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -32,7 +32,7 @@ CREATE TABLE `apprenant_` (
   `nom_` varchar(50) NOT NULL,
   `prenom` varchar(60) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(53) NOT NULL
+  `password` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -40,34 +40,21 @@ CREATE TABLE `apprenant_` (
 --
 
 INSERT INTO `apprenant_` (`Id_apprenant_`, `nom_`, `prenom`, `email`, `password`) VALUES
-(1, 'arun', 'jakson', 'arun@gmail.com', '$2y$10$s9hrmyoI3VUmT8jtOX8dJuL8JgmWwRok8fbVNFCJ4nkUWn'),
-(2, 'rajesh', 'jony', 'rajesh@gmail.com', '$2y$10$xV.sR2HPAd2st.Apoq/Zg.7Du0vRzo7az7MbGm3YxYKacT'),
-(3, 'moorthy', 'azart', 'moorthy@gmail.com', '$2y$10$xtOO9Fs1.lsZDlO3YSgfWuyPO84qYuaHNVpJpEPV6RZFxW'),
-(4, 'raja', 'niki', 'raja@gmail.com', '$2y$10$1c7WixRFKwqcw3fOlhIjw.bqJ5IsrgiM9.SBpLiZJWXz37'),
-(5, 'usha', 'kim', 'usha@gmail.com', '$2y$10$n6ENoFRQNSmRqQhSYaY4JOrU1FsEu6M3ag1xezPi6Cw5BW'),
-(6, 'priya', 'doja', 'priya@gmail.com', '$2y$10$JcGPh9H6uib1NDvj0a./J.6ld5DVXth6d03JSqekVJAlK0'),
-(7, 'Sundar', 'riana', 'Sundar@gmail.com', '$2y$10$bZWT2GCyfHQic6i3xgqTzuciCr6.OnbNsLGIqDi6fFxt0j'),
-(8, 'Kavitha', 'ariana', 'Kavitha@gmail.com', '$2y$10$UrrzTEi5/A/dDno6BvBfvO26SAoh9Za.OpuTN8dAHVRoHH'),
-(9, 'Dinesh', 'megan', 'Dinesh@gmail.com', '$2y$10$i1cgBS6MaeOj8WBu.nfKXOJoE8C.J4VOKGt2o7dmngA.Cp'),
-(10, 'Hema', 'taylor', 'Dinesh@gmail.com', '$2y$10$Psm0iBwsJIGNJQMT05IncuzPeJruk4jVrF2I87Ldp32Lo6'),
-(11, 'Gowri', 'selina', 'Gowri@gmail.com', '$2y$10$9Vk/6wDDLMLTsBXykQ5HJeTdvvpNSvpG/HQ6RYErslHUZY'),
-(12, 'Ram', 'zine', 'Ram@gmail.com', '$2y$10$PuUlrKmPIC0hZBIM9bTWOeGQsE9S/xDMPqlpNhatI6KWbU'),
-(13, 'Murugan', 'henry', 'Murugan@gmail.com', '$2y$10$t0vCp1DjAp7zNxlzpXRqIuxlV6YD0UzrTqf.4HRaouIcAj'),
-(14, 'Jenifer', 'dounia', 'Jenifer@gmail.com', '$2y$10$0DzkgoHGi/FtAPeMKB8oXetIDAugTFTqug1FbIeRe2IrWd'),
-(15, 'mamado', 'lini', 'mamado@gmail.com', '$2y$10$MGAGKoelU.LgUxqULtyIxeJ4uENkhzZO.z8D4QG0K/kwFo'),
-(16, 'kamila', 'lamo', 'kamila@gmail.com', '$2y$10$gzVXHrCJ0lOptXNNwBuqWuXssF/jSr2QmlyXa9VvRPgoE/'),
-(17, 'oranos', 'kaja', 'oranos@gmail.com', '$2y$10$LIj/EZ5wz37GiByAdAWuqO/BYp7voXAZvvWqa2HcYxrdfz'),
-(18, 'hicham', 'mapo', 'hicham@gmail.com', '$2y$10$8IzJuI/pBD0gBNSqM.yuwO/306viyb0BsNOAkuvOpTwsiG'),
-(19, 'yasin', 'ghirban', 'yasin@gmail.com', '$2y$10$CCqaFnnzNFhoSBtB.7phVO5iDa2t5T68u2.bTHfHha2o9n'),
-(20, 'chiha', 'malak', 'chiha@gmail.com', '$2y$10$GTLjYB0h8zS4AcG026YjuOOf3iRKSYRUFNLMtjoPQDpfZY'),
-(21, 'talib', 'mokbil', 'talib@gmail.com', '$2y$10$yDlH5A3cZkin28OCJLc4E.YB7vVLX37FKkpKDKDa6CH2en'),
-(22, 'jamal', 'amokbil', 'jamal@gmail.com', '$2y$10$My2H3CP/aJV7n8/aXUEZT.ifgNp4UBwFeKR6PuhwPsVgYT'),
-(23, 'milodi', 'jasi', 'milodi@gmail.com', '$2y$10$UMjzFQRV3Hf.TjyZUmYC.OGgYnJ/XaBgZuWUdqkl/jvED8'),
-(24, 'nano', 'one', 'milodi@gmail.com', '$2y$10$DU/rdoWItx1vrm3mtlrkTuzlbp0kRpgWlcIFFcfTYsp/Po'),
-(25, 'jamal', 'hamo', 'jamal@gmail.com', '$2y$10$nDHE1fJxVdEyCWomEl5MkON859FWJLCEx0rt4C5oBzTvri'),
-(26, 'ploma', 'pija', 'ploma@gmail.com', '$2y$10$yv4YU2otk58eQ4lHyRCHcORgwKwmUfjZJms7Jb1ebhwt0k'),
-(27, 'tiji', 'malkom', 'tiji@gmail.com', '$2y$10$pGzBPmwijVNP/l97YiBJ1uQNGmSHKJu7pXVgSXpf7QcYpG'),
-(28, 'naomi', 'pitis', 'naomi@gmail.com', '$2y$10$J/TvD73eD8pszI84i7pQ5.u7UmYq7/Q4adjCmXizb3dHwA');
+(29, 'mamado', 'lini', 'mamado@gmail.com', '$2y$10$NxdRv6EqXAZJ1IDyWly6ce.3G7xNvGynHS.3u1/TNONcdbIqc/DC2'),
+(30, 'kamila', 'lamo', 'kamila@gmail.com', '$2y$10$OUiPzTX6S.yu/H3TROi4y.mltHqD9XPvyfJxE.NLtsqsz11LghsK2'),
+(31, 'oranos', 'kaja', 'oranos@gmail.com', '$2y$10$CrIPUfYe/AA4fSuSkAVNium.USyg7nz62iOn/Qd5hv0NXFDNdSM/q'),
+(32, 'hicham', 'mapo', 'hicham@gmail.com', '$2y$10$4ihZknUHKKCXw0hRMlh5ZOmz3SSOCLDKPBmv38Tf7kBbf6lriIwt2'),
+(33, 'yasin', 'ghirban', 'yasin@gmail.com', '$2y$10$yHKkdcCOMnKbTr6VeWN3NuRw/LwIigds1oHkhwZzz5zUFeARSss0.'),
+(34, 'chiha', 'malak', 'chiha@gmail.com', '$2y$10$q7kV1UTad0MauHrbACBT8ulVPnOgxiQOkjJFG/QwZd2Iy0DqHXP6.'),
+(35, 'talib', 'mokbil', 'talib@gmail.com', '$2y$10$/O3Enzj6SW.mNB8yquGsTeiRk.E/pbBzSqJE6HyRJB.dAf5vmWFB2'),
+(36, 'jamal', 'amokbil', 'jamal@gmail.com', '$2y$10$KlBU7i3FEY1IgNse/QVlTevagxZItqQ08XnczM/hqK2N05Npdyv3W'),
+(37, 'milodi', 'jasi', 'milodi@gmail.com', '$2y$10$GD5f0xMXNqrKAPssRmyDFOKRLajQgwqfQbKmsSPDqLF4qCiL5hYg.'),
+(38, 'nano', 'one', 'milodi@gmail.com', '$2y$10$HQVeRSDNY3JGWDXe301mVOWeUzY.d7tCnibzl4RcdmTmDFpyaZ2K.'),
+(39, 'jamal', 'hamo', 'jamal@gmail.com', '$2y$10$l6TXeniC.qa5ptBYANEkdeDnyBQby39LefRoJAodkAR3MbyJ2iqyG'),
+(40, 'ploma', 'pija', 'ploma@gmail.com', '$2y$10$TgSy3s4s.DScgrLIMbS/ZOuSYwu3WscIR/.h2BrQPuOCB2sH3Oyr2'),
+(41, 'tiji', 'malkom', 'tiji@gmail.com', '$2y$10$6mmwfAsP/3TRovNEpLeIeOa/Ht87AIjYj28YrhDIbOkubgwANjKqO'),
+(42, 'naomi', 'pitis', 'naomi@gmail.com', '$2y$10$4MQCz7bdb7sM/j1Gz7cAYubmKb9Qmj130Dr.ReLsKpzCJR.MGs15u'),
+(43, 'ilias', 'anouar', 'ilias@gmail.com', '$2y$10$PJcycI.WGnLtxLTg/AwYOuvzqLTnutufx2JLfedKo9WRBuRXp32e2');
 
 -- --------------------------------------------------------
 
@@ -105,24 +92,25 @@ CREATE TABLE `formation_` (
   `Id_formation_` int(11) NOT NULL,
   `sujet` varchar(50) NOT NULL,
   `categorie` varchar(50) NOT NULL,
-  `masse_horaire` varchar(50) NOT NULL
+  `masse_horaire` varchar(50) NOT NULL,
+  `discription` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `formation_`
 --
 
-INSERT INTO `formation_` (`Id_formation_`, `sujet`, `categorie`, `masse_horaire`) VALUES
-(1, 'La communication', 'Self development', '20'),
-(2, 'Diversité et inclusion', 'Gestion', '10'),
-(3, 'Gestion du temps', 'Gestion', '15'),
-(4, 'Rédaction professionnelle', 'Gestion', '20'),
-(5, 'Gestion du stress', 'Gestion', '14'),
-(6, 'Sensibilisation à la sécurité', 'Sensibilisation', '20'),
-(7, 'Technologie d assistance', 'Technologie', '16'),
-(8, 'L éthique', 'Self development', '10'),
-(9, 'Le développement personnel', 'Self development', '20'),
-(10, 'Le harcèlement sur le lieu de travail', 'Self development', '15');
+INSERT INTO `formation_` (`Id_formation_`, `sujet`, `categorie`, `masse_horaire`, `discription`) VALUES
+(1, 'La communication', 'Self development', '20', 'La communication de formation consiste à transmettre des informations et des compétences entre un formateur et des apprenants. Elle utilise des techniques efficaces pour développer les aptitudes des apprenants, et peut se dérouler en présentiel ou à distance.'),
+(2, 'Diversité et inclusion', 'Gestion', '10', 'La diversité et l\'inclusion visent à valoriser et respecter les différences entre les individus. Cela implique de créer un environnement inclusif où tous les individus ont la possibilité de s\'exprimer librement et de contribuer de manière équitable. Les organisations peuvent ainsi améliorer leur productivité et leur capacité à répondre aux besoins de leur clientèle.'),
+(3, 'Gestion du temps', 'Gestion', '15', 'La gestion du temps consiste à utiliser efficacement le temps disponible pour accomplir des tâches et atteindre des objectifs. Cela implique de planifier et d\'organiser les activités en fonction de leur priorité, de déléguer les tâches lorsque c\'est possible, de limiter les distractions et de rester concentré sur les tâches importantes. En gérant efficacement son temps, on peut augmenter sa productivité, réduire son stress et atteindre ses objectifs plus rapidement.'),
+(4, 'Rédaction professionnelle', 'Gestion', '20', 'La rédaction professionnelle consiste à produire des documents écrits clairs, précis et adaptés au contexte professionnel. Cela implique de structurer les idées de manière logique, d\'utiliser un langage professionnel et de respecter les normes de présentation. Une rédaction professionnelle efficace permet de communiquer de manière claire et concise avec ses collègues, clients ou partenaires, renforçant ainsi la crédibilité et la qualité de l\'image de l\'entreprise.'),
+(5, 'Gestion du stress', 'Gestion', '14', 'La gestion du stress consiste à adopter des techniques et des stratégies pour faire face aux facteurs de stress de manière efficace. Cela implique de reconnaître les sources de stress, d\'apprendre à les gérer et de prendre soin de sa santé physique et mentale. Les techniques de gestion du stress peuvent inclure la méditation, l\'exercice physique régulier, la respiration profonde, le temps de loisir, la planification efficace et l\'optimisation de la qualité de vie. En gérant efficacement son stre'),
+(6, 'Sensibilisation à la sécurité', 'Sensibilisation', '20', 'La sensibilisation à la sécurité consiste à informer les individus sur les risques potentiels et les mesures de sécurité à prendre pour prévenir les accidents. Elle vise à réduire le nombre d\'accidents et à renforcer la confiance dans l\'environnement de travail ou de vie.\r\n'),
+(7, 'Technologie d assistance', 'Technologie', '16', 'La technologie d\'assistance est un domaine qui vise à améliorer la qualité de vie des personnes ayant des limitations physiques, cognitives ou sensorielles en utilisant des dispositifs et des outils technologiques. Ces technologies peuvent inclure des fauteuils roulants électriques, des prothèses, des aides auditives, des logiciels de reconnaissance vocale, des dispositifs de contrôle d\'environnement et bien plus encore.'),
+(8, 'L éthique', 'Self development', '10', 'L\'éthique concerne les principes et les valeurs qui régissent les comportements humains. Elle implique de faire des choix moralement justes et de respecter les droits et la dignité de tous les êtres humains. En respectant les normes éthiques, on peut favoriser la confiance, la transparence et l\'intégrité dans les interactions sociales et professionnelles.'),
+(9, 'Le développement personnel', 'Self development', '20', 'Le développement personnel désigne les efforts individuels pour améliorer ses compétences, ses connaissances et ses attitudes dans le but d\'atteindre ses objectifs personnels et professionnels. Cela implique de se connaître soi-même, d\'apprendre de nouvelles compétences, de développer une attitude positive et d\'adopter de nouvelles habitudes. Le développement personnel peut aider à améliorer la confiance en soi, la résilience et la réussite dans la vie.'),
+(10, 'Le harcèlement sur le lieu de travail', 'Self development', '15', 'Le harcèlement sur le lieu de travail désigne tout comportement abusif, répétitif ou offensant qui crée un environnement de travail hostile ou offensant pour une personne. Cela peut inclure des commentaires discriminatoires, des comportements intimidants, des insultes, des menaces et des violences physiques. Le harcèlement sur le lieu de travail est illégal et peut avoir des conséquences graves sur la santé mentale et physique de la victime, ainsi que sur la productivité et le bien-être de l\'ent');
 
 -- --------------------------------------------------------
 
@@ -141,16 +129,18 @@ CREATE TABLE `inscription` (
 --
 
 INSERT INTO `inscription` (`Id_session`, `Id_apprenant_`, `evaluation`) VALUES
-(41, 1, ''),
-(41, 2, ''),
-(41, 3, ''),
-(41, 8, ''),
-(41, 9, ''),
-(41, 10, ''),
-(43, 7, ''),
-(45, 16, ''),
-(46, 17, ''),
-(47, 28, '');
+(41, 29, ''),
+(41, 30, ''),
+(41, 31, ''),
+(41, 32, ''),
+(41, 38, ''),
+(41, 39, ''),
+(41, 43, NULL),
+(43, 37, ''),
+(44, 41, NULL),
+(45, 40, ''),
+(46, 33, ''),
+(47, 34, '');
 
 -- --------------------------------------------------------
 
@@ -229,7 +219,7 @@ ALTER TABLE `session`
 -- AUTO_INCREMENT pour la table `apprenant_`
 --
 ALTER TABLE `apprenant_`
-  MODIFY `Id_apprenant_` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `Id_apprenant_` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT pour la table `formateur`
