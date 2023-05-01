@@ -1,10 +1,22 @@
+<?php
+session_start();
+// echo "<pre>";
+// var_dump($_SESSION);
+// echo "<pre/>";
+require("connect.php");
+include("class.php");
+$cat = "SELECT DISTINCT categorie FROM formation_";
+$cat = $conn->query($cat);
+$cat = $cat->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>yasmine</title>
+    <title>EduSphere</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -35,22 +47,33 @@
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item d-flex">
-                        <div class="searchBox">
-                            <input class="searchInput" type="text" name="" placeholder="Search">
-                            <button class="searchButton" href="#">
-                                <i class="material-icons">
-                                    search
-                                </i>
-                            </button>
-                        </div>
-                        <form style="padding-top: 0px;margin-top: 6px;">
-                            <div class="field"><select class="form-select">
+                        <form action="" method="post">
+                            <div class="searchBox">
+                                <input class="searchInput" type="text" name="subject_like" placeholder="Search">
+                                <button class="searchButton" type="submit" name="seach_btn">
+                                    <i class="material-icons">
+                                        search
+                                    </i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <form style="padding-top: 0px;margin-top: 6px;" method="post">
+                            <div class="field">
+                                <select class="form-select" name="cat">
                                     <optgroup label="This is a group">
-                                        <option value="12" selected="">This is item 1</option>
-                                        <option value="13">This is item 2</option>
-                                        <option value="14">This is item 3</option>
+                                        <?php
+                                        foreach ($cat as $key) {
+                                            ?>
+                                            <option value="<?php echo $key['categorie'] ?>"><?php echo $key['categorie'] ?>
+                                            </option>
+                                            <?php
+                                        }
+                                        ?>
                                     </optgroup>
-                                </select><label class="form-label mb-0" for="float-input"></label></div>
+                                </select><label class="form-label mb-0" for="float-input"></label>
+                            </div>
+                            <button type="submit" name="filter_cat">Filter</button>
                         </form>
                     </li>
                 </ul>
@@ -61,7 +84,7 @@
         <div id="layoutSidenav_nav">
             <div id="sidenavAccordion" class="sb-sidenav accordion  " style="background-color: rgb(149, 125, 173);">
                 <div class="sb-sidenav-menu">
-                    <div class="nav">
+                    <!-- <div class="nav">
                         <div>
                             <div class="sb-sidenav-menu-heading"></div><a data-bss-hover-animate="rubberBand"
                                 class="nav-link collapsed" href="#" aria-expanded="false"
@@ -89,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#"><i class="fa fa-user"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Profil</a></div>
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#"><i class="fa fa-pencil"
@@ -101,105 +124,31 @@
             </div>
         </div>
         <div id="layoutSidenav_content">
-            <main></main>
-            <div class="container">
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card1">
-                    <div class="card-body">
-                        <h3 class="card-title">This is option 1</h3>
-                        <p class="card-text small">Card description with lots of great facts and interesting details.
-                        </p>
-                        <div class="go-corner">
-                            <div class="go-arrow">
-                                <div class="go-arrow">→</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <main class="d-flex flex-wrap p-5 gap-5">
+                <?php
+                $formation = new Formation;
+                if (isset($_POST['seach_btn'])) {
+                    ?>
+                    <p>Your search result</p><br>
+                    <?php
+                    $value = $_POST['subject_like'];
+                    $result = $formation->searsh_subject($conn, $value);
+                    $formation->Creat_card($result);
+                } elseif (isset($_POST['filter_cat'])) {
+                    $cat = $_POST['cat'];
+                    ?>
+                    <p>all formations in
+                        <?php echo $cat ?> category
+                    </p><br>
+                    <?php
+                    $result = $formation->sort($conn, $cat);
+                    $formation->Creat_card($result);
+                } else {
+                    $result = $formation->formation($conn);
+                    $formation->Creat_card($result);
+                }
+                ?>
+            </main>
         </div>
     </div>
     <div id="wrapper"></div>
