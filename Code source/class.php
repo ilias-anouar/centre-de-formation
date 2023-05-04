@@ -38,7 +38,7 @@ class User
       $test = $this->test_pass($this->password, $ex_pass);
       if ($test) {
         session_start();
-        $_SESSION['id'] = $user['Id_apprenant_'];
+        $_SESSION['Id_apprenant_'] = $user['Id_apprenant_'];
         header("Location: apphome.php");
       }
     }
