@@ -2,8 +2,9 @@
 
 SELECT *
 FROM session
-WHERE Date_debut > now()
-    Date_fin < [Date de début de la session donnée] OR Date_debut > [Date de fin de la session donnée];
+WHERE
+    Date_debut > now() Date_fin < [Date de début de la session donnée]
+    OR Date_debut > [Date de fin de la session donnée];
 
 --    SELECT * FROM session WHERE Date_debut > now() AND (2023-04-17 > 2023-06-17 OR 2023-06-17 < 2023-04-17);
 
@@ -97,7 +98,7 @@ WHERE
 
 
 
-   -- Afficher l'historique des sessions de formation d'un apprenant donné :
+   -- Afficher l' historique des sessions de formation d 'un apprenant donné :
 
 SELECT COUNT(3) FROM inscription WHERE Id_apprenant_ = 1;
 
@@ -149,8 +150,3 @@ FROM
 WHERE
     inscription.Id_session = [Identifiant de la session donnée]
     AND session.Id_Formateur = [Identifiant du formateur donné];
-
-
-
-
- 

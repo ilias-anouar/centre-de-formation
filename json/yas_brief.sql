@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 01 mai 2023 à 16:42
+-- Généré le : ven. 05 mai 2023 à 00:41
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -200,9 +200,7 @@ ALTER TABLE `formation_`
 -- Index pour la table `inscription`
 --
 ALTER TABLE `inscription`
-  ADD PRIMARY KEY (`Id_session`,`Id_apprenant_`),
-  ADD UNIQUE KEY `Id_apprenant_` (`Id_apprenant_`);
-
+  ADD PRIMARY KEY (`Id_session`,`Id_apprenant_`);
 --
 -- Index pour la table `session`
 --

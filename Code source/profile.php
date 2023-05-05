@@ -1,6 +1,14 @@
 <?php
-$Id_apprenant = $_GET['Id_apprenant'];
+session_start();
+require("connect.php");
+include("class.php");
+$Id_apprenant = $_SESSION['Id_apprenant_'];
 // echo $Id_apprenant;
+$user = new User();
+$info = $user->user_info($conn, $Id_apprenant);
+// echo "<pre>";
+// var_dump($info);
+// echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +29,7 @@ $Id_apprenant = $_GET['Id_apprenant'];
     <link rel="stylesheet" href="assets/css/Sidebar-Cool-SB-Admin-Inspirate.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu-sidebar.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
 </head>
 
 <body>
@@ -38,11 +47,11 @@ $Id_apprenant = $_GET['Id_apprenant'];
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item d-flex">
-                        <form action="" style="padding-top: 0px;margin-top: 6px;" method="post">
-                            <div class="field">
-                                <button type="submit" class="btn btn-danger" name="filter_cat">Log out</button>
-                            </div>
-                        </form>
+                        <div>
+                            <a href="<?php echo "log_out.php" ?>" class="btn btn-danger">Log out</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#update_password">Update password</button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -85,38 +94,89 @@ $Id_apprenant = $_GET['Id_apprenant'];
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link"
                             href="<?php echo "profile.php?Id_apprenant=" . $Id_apprenant ?>"><i class="fa fa-user"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Profil</a></div>
-                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#"><i class="fa fa-pencil"
+                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="inscription.php"><i class="fa fa-pencil"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions</a></div>
-                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#"><i class="fa fa-th-list"
-                                style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Historique</a></div>
+        
                 </div>
                 <div class="sb-sidenav-footer"></div>
             </div>
         </div>
+        <?php
+        if (isset($_POST['update_info'])) {
+            $first_name = $_POST['prenom'];
+            $last_name = $_POST['nom_'];
+            $email = $_POST['email'];
+            $user->Update_info($conn, $first_name, $last_name, $email, $Id_apprenant);
+        }
+        if (isset($_POST['update_pass'])) {
+            $old_pass = $_POST['old_pass'];
+            $new_pass = $_POST['new_pass'];
+            $c_new_pass = $_POST['c_new_pass'];
+            $result = $user->update_pass($conn, $Id_apprenant, $old_pass, $new_pass, $c_new_pass);
+        }
+        ?>
         <div id="layoutSidenav_content">
+            <?php
+            if (isset($result)) {
+                ?>
+                <div class="alert alert-warning m-0 text-center" role="alert">
+                    <?php echo $result ?>
+                </div>
+                <?php
+            }
+            ?>
             <main class="d-flex justify-content-center align-items-center">
                 <div class="bg-info mt-5 p-5">
                     <h1 class="text-white">EDIT YOUR INFORMATIONS</h1>
-                    <form action="" method="post">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="text-center">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control profile" id="floatingInput" placeholder="name@example.com">
+                            <input type="text" class="form-control profile" id="floatingInput" name="prenom"
+                                value="<?php echo $info['prenom'] ?>" placeholder="name@example.com">
                             <label for="floatingInput">First name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control profile" id="floatingPassword" placeholder="Password">
+                            <input type="text" class="form-control profile" id="floatingPassword" name="nom_"
+                                value="<?php echo $info['nom_'] ?>" placeholder="Password">
                             <label for="floatingPassword">Last name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control profile" id="floatingInput" placeholder="name@example.com">
+                            <input type="email" class="form-control profile" id="floatingInput" name="email"
+                                value="<?php echo $info['email'] ?>" placeholder="name@example.com">
                             <label for="floatingInput">Email address</label>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control profile" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
-                        </div>
+                        <button type="submit" name="update_info"
+                            class="btn btn-outline-light fw-bold px-5 text-black rounded-pill  mt-5">Save</button>
                     </form>
                 </div>
             </main>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="update_password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update password</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingInput" name="old_pass">
+                            <label for="floatingInput">Old password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingInput" name="new_pass">
+                            <label for="floatingInput">New password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingInput" name="c_new_pass">
+                            <label for="floatingInput">Confurm the new password</label>
+                        </div>
+                        <button type="submit" class="btn btn-danger" name="update_pass">Update</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div id="wrapper"></div>

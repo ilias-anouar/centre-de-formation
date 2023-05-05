@@ -6,6 +6,19 @@ session_start();
 require("connect.php");
 include("class.php");
 $id = $_GET['Id_formation_'];
+if (isset($_GET['Id_formation_']) && isset($_GET['id_session']) && isset($_GET['Id_apprenant_']) && isset($_GET['Id_Formateur'])) {
+    $Id_apprenant_ = $_GET['Id_apprenant_'];
+    $id_session = $_GET['id_session'];
+    $user = new User();
+    // $user->check_user_session($Id_apprenant_, $conn);
+    $check_result = $user->check_user_session($Id_apprenant_, $conn);
+    if ($check_result) {
+        $done = $inseription->inscription($conn, $id_session, $Id_apprenant_);
+    } else {
+        $error = "there was an erore while preparing your inscription";
+        // echo $error;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +73,8 @@ $id = $_GET['Id_formation_'];
                             </a>
                             <div id="collapseLayouts" class="collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
-                                <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="apphome.php">Formation</a></div>
+                                <div class="sb-sidenav-menu-nested nav"><a class="nav-link"
+                                        href="apphome.php">Formation</a></div>
                             </div>
                         </div>
                         <div>
@@ -80,70 +94,57 @@ $id = $_GET['Id_formation_'];
                     </div>
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#"><i class="fa fa-user"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Profil</a></div>
-                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#"><i class="fa fa-pencil"
+                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="inscription.php"><i
+                                class="fa fa-pencil"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions</a></div>
-                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#"><i class="fa fa-th-list"
-                                style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Historique</a></div>
+                    <div class="sb-sidenav-footer"></div>
                 </div>
-                <div class="sb-sidenav-footer"></div>
             </div>
-        </div>
-        <div id="layoutSidenav_content">
-            <?php
-            if (isset($done)) {
-                ?>
-                <div class="alert alert-info" role="alert">
-                    <?php echo $done ?>
-                </div>
-                <?php
-            } elseif (isset($error)) {
-                ?>
-                <div class="alert alert-info" role="alert">
-                    <?php echo $error ?>
-                </div>
-                <?php
-            }
-            ?>
-            <main class="p-5">
-                <?php
-                $formation = new Formation;
-                $details = $formation->details($conn, $id);
-                $formation->show_details($details);
-                ?>
-            </main>
-            <div class="p-5">
-                <h2>Sessions</h2>
-                <?php
-                $session = new Session();
-                $result = $session->sessin($conn, $id);
-                $inseription = new Inscription($result[0]['Id_session']);
-                $formatuer = new Formateur($result[0]['Id_Formateur']);
-                $form_data = $formatuer->formatuer_data($conn);
-                $insc_num = $inseription->Inscription_number($conn);
-                $session->show_session($result, $insc_num, $form_data['nom'], $_SESSION['id'])
+            <div id="layoutSidenav_content">
+
+                <main class="p-5">
+                    <?php
+                    $formation = new Formation;
+                    $details = $formation->details($conn, $id);
+                    $formation->show_details($details);
                     ?>
+                </main>
+                <div class="p-5">
+                    <?php
+                    if (isset($done)) {
+                        ?>
+                        <div class="alert alert-info" role="alert">
+                            <?php echo $done ?>
+                        </div>
+                        <?php
+                    }
+                    if (isset($error)) {
+                        ?>
+                        <div class="alert alert-info" role="alert">
+                            <?php echo $error ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <h2>Sessions</h2>
+                    <?php
+                    $error;
+                    $done;
+                    $session = new Session();
+                    $result = $session->sessin($conn, $id);
+                    $inseription = new Inscription($result[0]['Id_session']);
+                    $formatuer = new Formateur($result[0]['Id_Formateur']);
+                    $form_data = $formatuer->formatuer_data($conn);
+                    $insc_num = $inseription->Inscription_number($conn);
+                    $session->show_session($result, $insc_num, $form_data['nom'], $_SESSION['Id_apprenant_'])
+                        ?>
+                </div>
             </div>
-            <?php
-            if (isset($_GET['Id_formation_']) && isset($_GET['id_session']) && isset($_GET['Id_apprenant_']) && isset($_GET['Id_Formateur'])) {
-                echo "the king is here";
-                $Id_apprenant_ = $_GET['Id_apprenant_'];
-                $id_session = $_GET['id_session'];
-                $user = new User();
-                $check_result = $user->check_user_session($Id_apprenant_, $conn);
-                var_dump($check_result);
-                if ($check_result) {
-                    $done = $inseription->inscription($conn, $id_session, $Id_apprenant_);
-                } else {
-                    $error = "there was an erore while preparing your inscription";
-                }
-            }
-            ?>
         </div>
-    </div>
-    <div id="wrapper"></div>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
+        <div id="wrapper"></div>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/bs-init.js"></script>
+        <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
 </body>
 
 </html>

@@ -72,32 +72,142 @@ class User
 
   public function check_user_session($id_user, $conn)
   {
-    $apprenant = "SELECT Id_session FROM inscription WHERE Id_apprenant_ = $id_user";
+    //     SELECT COUNT(*) AS nb_sessions
+// FROM inscription
+// WHERE Id_apprenant = [Identifiant de lapprenant donné];
+    $apprenant = "SELECT COUNT(*) AS nb_sessions
+    FROM inscription
+    WHERE Id_apprenant_ =  $id_user";
     $apprenant = $conn->query($apprenant);
-    $apprenant = $apprenant->fetchAll(PDO::FETCH_ASSOC);
-    // echo "<pre>";
-    // var_dump($apprenant);
-    // echo "</pre>";
-
-    // foreach ($apprenant as $session) {
-    //   $Id_session = $session['Id_session'];
-    //   $sql = "SELECT * FROM session WHERE Id_session = $Id_session";
-    //   $resul = $conn->query($sql);
-    //   $resul = $resul->fetchAll(PDO::FETCH_ASSOC);
-    //   echo "<pre>";
-    //   var_dump($resul);
-    //   echo "</pre>";
-    // }
-    if (count($apprenant) <=2) {
+    $apprenant = $apprenant->fetch(PDO::FETCH_ASSOC);
+    $count = $apprenant['nb_sessions'];
+    if ($count <= 2) {
       return true;
     } else {
       return false;
     }
   }
-
-  public function user_inscription()
+  public function user_info($conn, $id_user)
   {
+    $sql = "SELECT * FROM apprenant_ WHERE Id_apprenant_ = $id_user";
+    $stmt = $conn->query($sql);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
+  }
 
+  public function Update_info($conn, $first_name, $last_name, $email, $id_user)
+  {
+    $sql = "UPDATE `apprenant_` SET `nom_`='$last_name',`prenom`='$first_name',`email`='$email' WHERE Id_apprenant_ = $id_user";
+    if ($stmt = $conn->query($sql)) {
+      $stmt->execute();
+    }
+  }
+
+  public function update_pass($conn, $id_user, $old_pass, $new_pass, $c_new_pass)
+  {
+    $sql = "SELECT * FROM apprenant_ WHERE Id_apprenant_ = $id_user";
+    $stmt = $conn->query($sql);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $ex_pass = $user['password'];
+    if ($this->test_pass($old_pass, $ex_pass)) {
+      if ($new_pass == $c_new_pass) {
+        $pass = $this->password($new_pass);
+        $sql = "UPDATE `apprenant_` SET `password`='$pass' WHERE Id_apprenant_ = $id_user";
+        $stmt = $conn->query($sql);
+        $succes = "your password updated seccusfuly...!";
+        return $succes;
+      } else {
+        $error = "check the password you enter it's looks like the confirmation password is not correct";
+        return $error;
+      }
+    } else {
+      $warning = "the pasword you enterd looks to be not valid enter youe current password";
+      return $warning;
+    }
+  }
+  public function User_inscription($conn, $id_user)
+  {
+    $result = array();
+    $sql = "SELECT * FROM inscription WHERE Id_apprenant_ = $id_user";
+    $resul = $conn->query($sql);
+    // $resul = $resul->fetch(PDO::FETCH_ASSOC);
+    while ($test = $resul->fetch(PDO::FETCH_ASSOC)) {
+      array_push($result, $test);
+    }
+    return $result;
+  }
+  public function user_history($conn, $id_user)
+  {
+    $result = array();
+    // $sql = "SELECT s.*
+    // FROM session s
+    // JOIN inscription i ON s.Id_session = i.Id_session
+    // WHERE i.Id_apprenant_ = $id_user
+    // AND s.Date_fin < NOW()";
+    $sql = "SELECT s.*, i.evaluation, f.sujet,fo.nom
+    FROM session s
+    JOIN inscription i ON s.Id_session = i.Id_session
+    JOIN formation_ f ON s.Id_formation_ = f.Id_formation_
+    JOIN formateur fo ON s.Id_Formateur = fo.Id_Formateur
+    WHERE i.Id_apprenant_ = $id_user
+    AND s.Date_fin < NOW();";
+    $stmt = $conn->query($sql);
+    // $resul = $stmt->fetch(PDO::FETCH_ASSOC);
+    while ($test = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      array_push($result, $test);
+    }
+    // echo "<pre>";
+    // var_dump($result);
+    // echo "</pre>";
+    return $result;
+  }
+  public function show_history($val)
+  {
+    ?>
+    <tr>
+      <td>
+        <?php echo $val['sujet'] ?>
+      </td>
+      <td>
+        <?php echo $val['Date_debut'] ?>
+      </td>
+      <td>
+        <?php echo $val['Date_fin'] ?>
+      </td>
+      <td>
+        <?php echo $val['nom'] ?>
+      </td>
+      <td>
+        <?php
+        echo $val['evaluation'];
+        ?>
+      </td>
+    </tr>
+    <?php
+  }
+  public function show_table($val, $insc, $t_name, $f_name)
+  {
+    ?>
+    <tr>
+      <td>
+        <?php echo $f_name ?>
+      </td>
+      <td>
+        <?php echo $val['Date_debut'] ?>
+      </td>
+      <td>
+        <?php echo $val['Date_fin'] ?>
+      </td>
+      <td>
+        <?php echo $t_name ?>
+      </td>
+      <td>
+        <?php
+        echo $insc['evaluation'];
+        ?>
+      </td>
+    </tr>
+    <?php
   }
 }
 
@@ -221,7 +331,7 @@ class Session
                 <?php
               } else {
                 ?>
-                <a href="<?php echo "formation.php?Id_formation_=" . $session['Id_formation_'] . "&id_session=" . $session['Id_session'] . "&Id_apprenant_=" . $_SESSION['id'] . "&Id_Formateur=" . $session['Id_Formateur'] ?>"
+                <a href="<?php echo "formation.php?Id_formation_=" . $session['Id_formation_'] . "&id_session=" . $session['Id_session'] . "&Id_apprenant_=" . $_SESSION['Id_apprenant_'] . "&Id_Formateur=" . $session['Id_Formateur'] ?>"
                   class="btn btn-success" type="submit" name="inscription">Inscription</a>
                 <?php
               }
@@ -258,13 +368,14 @@ class Inscription
     return $insc_num;
   }
 
-  public function inscription($conn,$Id_session,$Id_apprenant_ )
+  public function inscription($conn, $Id_session, $Id_apprenant_)
   {
     $sql = "INSERT INTO `inscription`(`Id_session`, `Id_apprenant_`) VALUES ('$Id_session','$Id_apprenant_')";
     $sql = $conn->query($sql);
     $succes = "your inscription to this session is done perfectly";
     return $succes;
   }
+
 }
 
 class Formateur
