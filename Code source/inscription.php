@@ -1,17 +1,8 @@
 <?php
 session_start();
-// echo "<pre>";
-// var_dump($_SESSION);
-// echo "<pre/>";
-$Id_apprenant = $_SESSION['Id_apprenant_'];
-// echo $Id_apprenant_ ; 
 require("connect.php");
 include("class.php");
-$cat = "SELECT DISTINCT categorie FROM formation_";
-$cat = $conn->query($cat);
-$cat = $cat->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,38 +38,6 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
                 data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span
                     class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item d-flex">
-                        <form action="" method="post">
-                            <div class="searchBox">
-                                <input class="searchInput" type="text" name="subject_like" placeholder="Search">
-                                <button class="searchButton" type="submit" name="seach_btn">
-                                    <i class="material-icons">
-                                        search
-                                    </i>
-                                </button>
-                            </div>
-                        </form>
-
-                        <form style="padding-top: 0px;margin-top: 6px;" method="post">
-                            <div class="field">
-                                <select class="form-select" name="cat">
-                                    <optgroup label="This is a group">
-                                        <?php
-                                        foreach ($cat as $key) {
-                                            ?>
-                                            <option value="<?php echo $key['categorie'] ?>"><?php echo $key['categorie'] ?>
-                                            </option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </optgroup>
-                                </select><label class="form-label mb-0" for="float-input"></label>
-                            </div>
-                            <button type="submit" name="filter_cat">Filter</button>
-                        </form>
-                    </li>
-                </ul>
             </div>
         </div>
     </nav>
@@ -86,7 +45,7 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
         <div id="layoutSidenav_nav">
             <div id="sidenavAccordion" class="sb-sidenav accordion  " style="background-color: rgb(149, 125, 173);">
                 <div class="sb-sidenav-menu">
-                    <!-- <div class="nav">
+                    <div class="nav">
                         <div>
                             <div class="sb-sidenav-menu-heading"></div><a data-bss-hover-animate="rubberBand"
                                 class="nav-link collapsed" href="#" aria-expanded="false"
@@ -97,7 +56,8 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
                             </a>
                             <div id="collapseLayouts" class="collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
-                                <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#">Session</a></div>
+                                <div class="sb-sidenav-menu-nested nav"><a class="nav-link"
+                                        href="apphome.php">Formation</a></div>
                             </div>
                         </div>
                         <div>
@@ -114,41 +74,72 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="profile.php"><i class="fa fa-user"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Profil</a></div>
-                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="inscription.php"><i class="fa fa-pencil"
+                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="inscription.php"><i
+                                class="fa fa-pencil"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions</a></div>
-           
+
                 </div>
                 <div class="sb-sidenav-footer"></div>
             </div>
         </div>
         <div id="layoutSidenav_content">
             <main class="d-flex flex-wrap p-5 gap-5">
-                <?php
-                $formation = new Formation;
-                if (isset($_POST['seach_btn'])) {
-                    ?>
-                    <p>Your search result</p><br>
-                    <?php
-                    $value = $_POST['subject_like'];
-                    $result = $formation->searsh_subject($conn, $value);
-                    $formation->Creat_card($result);
-                } elseif (isset($_POST['filter_cat'])) {
-                    $cat = $_POST['cat'];
-                    ?>
-                    <p>all formations in
-                        <?php echo $cat ?> category
-                    </p><br>
-                    <?php
-                    $result = $formation->sort($conn, $cat);
-                    $formation->Creat_card($result);
-                } else {
-                    $result = $formation->formation($conn);
-                    $formation->Creat_card($result);
-                }
-                ?>
+                <h2>History</h2>
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Formation</th>
+                            <th>Starting date</th>
+                            <th>Finishing date</th>
+                            <th>Teacher</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $Id_apprenant = $_SESSION['Id_apprenant_'];
+                        $user = new User();
+                        $result = $user->user_history($conn, $Id_apprenant);
+                        foreach ($result as $val) {
+                            $user->show_history($val);
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <h2>My Inscriptions</h2>
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Formation</th>
+                            <th>Starting date</th>
+                            <th>Finishing date</th>
+                            <th>Teacher</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $Id_apprenant = $_SESSION['Id_apprenant_'];
+                        $user = new User();
+                        $insc = $user->User_inscription($conn, $Id_apprenant);
+                        foreach ($insc as $key) {
+                            $Id_session = $key['Id_session'];
+                            $session = "SELECT * FROM session WHERE Id_session = $Id_session";
+                            $session = $conn->query($session);
+                            $session = $session->fetch(PDO::FETCH_ASSOC);
+                            $Id_formation_ = $session['Id_formation_'];
+                            $f_name = "SELECT sujet FROM formation_ WHERE Id_formation_ = $Id_formation_";
+                            $f_name = $conn->query($f_name);
+                            $f_name = $f_name->fetch(PDO::FETCH_ASSOC);
+                            $f_name = $f_name['sujet'];
+                            $user->show_table($session, $key, 'ilias', $f_name);
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </main>
         </div>
     </div>
@@ -157,5 +148,3 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
 </body>
-
-</html>

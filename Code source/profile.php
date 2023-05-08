@@ -1,17 +1,15 @@
 <?php
 session_start();
-// echo "<pre>";
-// var_dump($_SESSION);
-// echo "<pre/>";
-$Id_apprenant = $_SESSION['Id_apprenant_'];
-// echo $Id_apprenant_ ; 
 require("connect.php");
 include("class.php");
-$cat = "SELECT DISTINCT categorie FROM formation_";
-$cat = $conn->query($cat);
-$cat = $cat->fetchAll(PDO::FETCH_ASSOC);
+$Id_apprenant = $_SESSION['Id_apprenant_'];
+// echo $Id_apprenant;
+$user = new User();
+$info = $user->user_info($conn, $Id_apprenant);
+// echo "<pre>";
+// var_dump($info);
+// echo "</pre>";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +20,6 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
     <link rel="stylesheet" href="assets/css/animate.min.css">
     <link rel="stylesheet" href="assets/css/Hover-cards.css">
     <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
@@ -32,6 +29,7 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="assets/css/Sidebar-Cool-SB-Admin-Inspirate.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu-sidebar.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
 </head>
 
 <body>
@@ -49,34 +47,11 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item d-flex">
-                        <form action="" method="post">
-                            <div class="searchBox">
-                                <input class="searchInput" type="text" name="subject_like" placeholder="Search">
-                                <button class="searchButton" type="submit" name="seach_btn">
-                                    <i class="material-icons">
-                                        search
-                                    </i>
-                                </button>
-                            </div>
-                        </form>
-
-                        <form style="padding-top: 0px;margin-top: 6px;" method="post">
-                            <div class="field">
-                                <select class="form-select" name="cat">
-                                    <optgroup label="This is a group">
-                                        <?php
-                                        foreach ($cat as $key) {
-                                            ?>
-                                            <option value="<?php echo $key['categorie'] ?>"><?php echo $key['categorie'] ?>
-                                            </option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </optgroup>
-                                </select><label class="form-label mb-0" for="float-input"></label>
-                            </div>
-                            <button type="submit" name="filter_cat">Filter</button>
-                        </form>
+                        <div>
+                            <a href="<?php echo "log_out.php" ?>" class="btn btn-danger">Log out</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#update_password">Update password</button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -86,7 +61,7 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
         <div id="layoutSidenav_nav">
             <div id="sidenavAccordion" class="sb-sidenav accordion  " style="background-color: rgb(149, 125, 173);">
                 <div class="sb-sidenav-menu">
-                    <!-- <div class="nav">
+                    <div class="nav">
                         <div>
                             <div class="sb-sidenav-menu-heading"></div><a data-bss-hover-animate="rubberBand"
                                 class="nav-link collapsed" href="#" aria-expanded="false"
@@ -97,7 +72,8 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
                             </a>
                             <div id="collapseLayouts" class="collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
-                                <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#">Session</a></div>
+                                <div class="sb-sidenav-menu-nested nav"><a class="nav-link"
+                                        href="apphome.php">Formation</a></div>
                             </div>
                         </div>
                         <div>
@@ -114,42 +90,93 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-                    </div> -->
-                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="profile.php"><i class="fa fa-user"
+                    </div>
+                    <div class="sb-sidenav-menu-nested nav"><a class="nav-link"
+                            href="<?php echo "profile.php?Id_apprenant=" . $Id_apprenant ?>"><i class="fa fa-user"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Profil</a></div>
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="inscription.php"><i class="fa fa-pencil"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions</a></div>
-           
+        
                 </div>
                 <div class="sb-sidenav-footer"></div>
             </div>
         </div>
+        <?php
+        if (isset($_POST['update_info'])) {
+            $first_name = $_POST['prenom'];
+            $last_name = $_POST['nom_'];
+            $email = $_POST['email'];
+            $user->Update_info($conn, $first_name, $last_name, $email, $Id_apprenant);
+        }
+        if (isset($_POST['update_pass'])) {
+            $old_pass = $_POST['old_pass'];
+            $new_pass = $_POST['new_pass'];
+            $c_new_pass = $_POST['c_new_pass'];
+            $result = $user->update_pass($conn, $Id_apprenant, $old_pass, $new_pass, $c_new_pass);
+        }
+        ?>
         <div id="layoutSidenav_content">
-            <main class="d-flex flex-wrap p-5 gap-5">
-                <?php
-                $formation = new Formation;
-                if (isset($_POST['seach_btn'])) {
-                    ?>
-                    <p>Your search result</p><br>
-                    <?php
-                    $value = $_POST['subject_like'];
-                    $result = $formation->searsh_subject($conn, $value);
-                    $formation->Creat_card($result);
-                } elseif (isset($_POST['filter_cat'])) {
-                    $cat = $_POST['cat'];
-                    ?>
-                    <p>all formations in
-                        <?php echo $cat ?> category
-                    </p><br>
-                    <?php
-                    $result = $formation->sort($conn, $cat);
-                    $formation->Creat_card($result);
-                } else {
-                    $result = $formation->formation($conn);
-                    $formation->Creat_card($result);
-                }
+            <?php
+            if (isset($result)) {
                 ?>
+                <div class="alert alert-warning m-0 text-center" role="alert">
+                    <?php echo $result ?>
+                </div>
+                <?php
+            }
+            ?>
+            <main class="d-flex justify-content-center align-items-center">
+                <div class="bg-info mt-5 p-5">
+                    <h1 class="text-white">EDIT YOUR INFORMATIONS</h1>
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="text-center">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingInput" name="prenom"
+                                value="<?php echo $info['prenom'] ?>" placeholder="name@example.com">
+                            <label for="floatingInput">First name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingPassword" name="nom_"
+                                value="<?php echo $info['nom_'] ?>" placeholder="Password">
+                            <label for="floatingPassword">Last name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control profile" id="floatingInput" name="email"
+                                value="<?php echo $info['email'] ?>" placeholder="name@example.com">
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                        <button type="submit" name="update_info"
+                            class="btn btn-outline-light fw-bold px-5 text-black rounded-pill  mt-5">Save</button>
+                    </form>
+                </div>
             </main>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="update_password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update password</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingInput" name="old_pass">
+                            <label for="floatingInput">Old password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingInput" name="new_pass">
+                            <label for="floatingInput">New password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control profile" id="floatingInput" name="c_new_pass">
+                            <label for="floatingInput">Confurm the new password</label>
+                        </div>
+                        <button type="submit" class="btn btn-danger" name="update_pass">Update</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div id="wrapper"></div>
@@ -157,5 +184,3 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
 </body>
-
-</html>
