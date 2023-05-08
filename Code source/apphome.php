@@ -86,39 +86,11 @@ $cat = $cat->fetchAll(PDO::FETCH_ASSOC);
         <div id="layoutSidenav_nav">
             <div id="sidenavAccordion" class="sb-sidenav accordion  " style="background-color: rgb(149, 125, 173);">
                 <div class="sb-sidenav-menu">
-                    <!-- <div class="nav">
-                        <div>
-                            <div class="sb-sidenav-menu-heading"></div><a data-bss-hover-animate="rubberBand"
-                                class="nav-link collapsed" href="#" aria-expanded="false"
-                                aria-controls="collapseLayouts" data-bs-toggle="collapse"
-                                data-bs-target="#collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fa fa-book"></i></div><span>Formation</span>
-                                <div class="sb-sidenav-collapse-arrow"><i class="fa fa-angle-down"></i></div>
-                            </a>
-                            <div id="collapseLayouts" class="collapse" aria-labelledby="headingOne"
-                                data-bs-parent="#sidenavAccordion">
-                                <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="#">Session</a></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div id="collapse2" class="collapse" aria-labelledby="heading2"
-                                data-bs-parent="#sidenavAccordion">
-                                <div id="sidenavAccordionPages" class="sb-sidenav-menu-nested nav accordion"><a
-                                        class="nav-link collapsed" href="#" aria-expanded="false"
-                                        aria-controls="pagesCollapseAuth" data-bs-toggle="collapse"
-                                        data-bs-target="#pagesCollapseAuth"><span>Menu Item</span>
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fa fa-angle-down"></i></div>
-                                    </a>
-                                    <div id="pagesCollapseAuth" class="collapse" aria-labelledby="headingOne"
-                                        data-bs-parent="#sidenavAccordionPages"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="profile.php"><i class="fa fa-user"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Profil</a></div>
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="inscription.php"><i class="fa fa-pencil"
-                                style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions</a></div>
+                                style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions & History</a></div>
            
                 </div>
                 <div class="sb-sidenav-footer"></div>
