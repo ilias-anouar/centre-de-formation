@@ -145,7 +145,7 @@ include("class.php");
                             $session = $session->fetch(PDO::FETCH_ASSOC);
                             $today = date("Y-m-d");
                             if ($session['Date_debut'] < $today && $session['Date_fin'] > $today) {
-                                $date_en_session = $session['Date_debut'];
+                                $date_en_session = $session['Date_fin'];
                                 $Id_formation_ = $session['Id_formation_'];
                                 $f_name = "SELECT sujet FROM formation_ WHERE Id_formation_ = $Id_formation_";
                                 $f_name = $conn->query($f_name);
@@ -179,7 +179,7 @@ include("class.php");
                             $session = $conn->query($session);
                             $session = $session->fetch(PDO::FETCH_ASSOC);
                             $today = date("Y-m-d");
-                            if ($session['Date_fin'] > $date_en_session) {
+                            if ($session['Date_debut'] > $date_en_session) {
                                 $Id_formation_ = $session['Id_formation_'];
                                 $f_name = "SELECT sujet FROM formation_ WHERE Id_formation_ = $Id_formation_";
                                 $f_name = $conn->query($f_name);
