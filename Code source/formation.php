@@ -141,10 +141,11 @@ if (isset($_GET['Id_formation_']) && isset($_GET['id_session']) && isset($_GET['
                 </div>
             </div>
         </div>
-        <div id="wrapper"></div>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/bs-init.js"></script>
-        <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
+    </div>
+    <div id="wrapper"></div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
 </body>
 
 </html>
