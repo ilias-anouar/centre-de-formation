@@ -6,19 +6,7 @@ session_start();
 require("connect.php");
 include("class.php");
 $id = $_GET['Id_formation_'];
-if (isset($_GET['Id_formation_']) && isset($_GET['id_session']) && isset($_GET['Id_apprenant_']) && isset($_GET['Id_Formateur'])) {
-    $Id_apprenant_ = $_GET['Id_apprenant_'];
-    $id_session = $_GET['id_session'];
-    $user = new User();
-    // $user->check_user_session($Id_apprenant_, $conn);
-    $check_result = $user->check_user_session($Id_apprenant_, $conn);
-    if ($check_result) {
-        $done = $inseription->inscription($conn, $id_session, $Id_apprenant_);
-    } else {
-        $error = "there was an erore while preparing your inscription";
-        // echo $error;
-    }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,51 +88,66 @@ if (isset($_GET['Id_formation_']) && isset($_GET['id_session']) && isset($_GET['
                     <div class="sb-sidenav-footer"></div>
                 </div>
             </div>
-            <div id="layoutSidenav_content">
+        </div>
 
-                <main class="p-5">
-                    <?php
-                    $formation = new Formation;
-                    $details = $formation->details($conn, $id);
-                    $formation->show_details($details);
+        <div id="layoutSidenav_content">
+
+            <main class="p-5">
+                <?php
+                $formation = new Formation;
+                $details = $formation->details($conn, $id);
+                $formation->show_details($details);
+                ?>
+            </main>
+            <div class="p-5">
+                <?php
+                if (isset($done)) {
                     ?>
-                </main>
-                <div class="p-5">
+                    <div class="alert alert-info" role="alert">
+                        <?php echo $done ?>
+                    </div>
                     <?php
-                    if (isset($done)) {
-                        ?>
-                        <div class="alert alert-info" role="alert">
-                            <?php echo $done ?>
-                        </div>
-                        <?php
-                    }
-                    if (isset($error)) {
-                        ?>
-                        <div class="alert alert-info" role="alert">
-                            <?php echo $error ?>
-                        </div>
-                        <?php
-                    }
+                }
+                if (isset($error)) {
                     ?>
-                    <h2>Sessions</h2>
+                    <div class="alert alert-info" role="alert">
+                        <?php echo $error ?>
+                    </div>
                     <?php
-                    $error;
-                    $done;
-                    $session = new Session();
-                    $result = $session->sessin($conn, $id);
-                    $inseription = new Inscription($result[0]['Id_session']);
-                    $formatuer = new Formateur($result[0]['Id_Formateur']);
-                    $form_data = $formatuer->formatuer_data($conn);
-                    $insc_num = $inseription->Inscription_number($conn);
-                    $session->show_session($result, $insc_num, $form_data['nom'], $_SESSION['Id_apprenant_'])
-                        ?>
-                </div>
+                }
+                ?>
+                <h2>Sessions</h2>
+                <?php
+                $error;
+                $done;
+                $session = new Session();
+                $result = $session->sessin($conn, $id);
+                $inseription = new Inscription($result[0]['Id_session']);
+                $formatuer = new Formateur($result[0]['Id_Formateur']);
+                $form_data = $formatuer->formatuer_data($conn);
+                $insc_num = $inseription->Inscription_number($conn);
+                $session->show_session($result, $insc_num, $form_data['nom'], $_SESSION['Id_apprenant_']);
+                if (isset($_GET['Id_formation_']) && isset($_GET['id_session']) && isset($_GET['Id_apprenant_']) && isset($_GET['Id_Formateur'])) {
+                    $Id_apprenant_ = $_GET['Id_apprenant_'];
+                    $id_session = $_GET['id_session'];
+                    $user = new User();
+                    // $user->check_user_session($Id_apprenant_, $conn);
+                    $check_result = $user->check_user_session($Id_apprenant_, $conn);
+                    if ($check_result) {
+                        $done = $inseription->inscription($conn, $id_session, $Id_apprenant_);
+                    } else {
+                        $error = "there was an erore while preparing your inscription";
+                        // echo $error;
+                    }
+                }
+                ?>
             </div>
         </div>
-        <div id="wrapper"></div>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/bs-init.js"></script>
-        <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
+    </div>
+    <div id="wrapper"></div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/Sidebar-Menu-sidebar.js"></script>
 </body>
 
 </html>
