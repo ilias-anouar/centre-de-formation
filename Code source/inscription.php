@@ -166,7 +166,7 @@ include("class.php");
                             <th>Finishing date</th>
                             <th>Teacher</th>
                             <th>Status</th>
-                        </tr>
+                        </tr>c
                     </thead>
                     <tbody>
                         <?php
