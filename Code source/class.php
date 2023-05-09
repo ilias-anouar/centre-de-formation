@@ -1,14 +1,21 @@
 <?php
+
 use LDAP\Result;
 
 class User
 {
+
   public $name;
   public $prenom;
   public $email;
   public $password;
 
+
+  //  take the informations of the app + connection db, it generates a hashed password using the password() method,
+  //  then  checks if the email is already exist   using  check_user method  ,
+  // and finally    saves the app infos  to the database using the save() method 
   public function signup($name, $prenom, $email, $password, $conn)
+
   {
     $this->name = $name;
     $this->prenom = $prenom;
@@ -25,6 +32,8 @@ class User
       return $error;
     }
   }
+
+  // if the email il existe it compare the using password with the entred with the stored password by calling test_pass method 
   public function signin($email, $password, $conn)
   {
     $this->email = $email;
@@ -70,19 +79,32 @@ class User
   }
 
 
-  public function check_user_session($id_user, $conn)
+
+
+  public function check_user_session($id_user, $conn, $nd_session)
   {
-    //     SELECT COUNT(*) AS nb_sessions
-// FROM inscription
-// WHERE Id_apprenant = [Identifiant de lapprenant donné];
-    $apprenant = "SELECT COUNT(*) AS nb_sessions
+    $new_session = "SELECT * FROM session WHERE Id_session = $nd_session";
+    $new_session = $conn->query($new_session);
+    $new_session = $new_session->fetch(PDO::FETCH_ASSOC);
+
+    $nb_sessions = "SELECT *,COUNT(*) AS nb_sessions
     FROM inscription
     WHERE Id_apprenant_ =  $id_user";
-    $apprenant = $conn->query($apprenant);
-    $apprenant = $apprenant->fetch(PDO::FETCH_ASSOC);
-    $count = $apprenant['nb_sessions'];
-    if ($count <= 2) {
-      return true;
+    $nb_sessions = $conn->query($nb_sessions);
+    $nb_sessions = $nb_sessions->fetch(PDO::FETCH_ASSOC);
+
+    $count = $nb_sessions['nb_sessions'];
+
+    $id_old_session = $nb_sessions['Id_session'];
+    $old_session = "SELECT * FROM session WHERE Id_session = $id_old_session";
+    $old_session = $conn->query($old_session);
+    $old_session = $old_session->fetch(PDO::FETCH_ASSOC);
+
+    // return [$old_session, $new_session];
+    if ($count < 2) {
+      if ($new_session['Date_debut'] > $old_session['Date_fin']) {
+        return true;
+      }
     } else {
       return false;
     }
@@ -136,14 +158,11 @@ class User
     }
     return $result;
   }
+
   public function user_history($conn, $id_user)
   {
     $result = array();
-    // $sql = "SELECT s.*
-    // FROM session s
-    // JOIN inscription i ON s.Id_session = i.Id_session
-    // WHERE i.Id_apprenant_ = $id_user
-    // AND s.Date_fin < NOW()";
+
     $sql = "SELECT s.*, i.evaluation, f.sujet,fo.nom
     FROM session s
     JOIN inscription i ON s.Id_session = i.Id_session
@@ -156,14 +175,12 @@ class User
     while ($test = $stmt->fetch(PDO::FETCH_ASSOC)) {
       array_push($result, $test);
     }
-    // echo "<pre>";
-    // var_dump($result);
-    // echo "</pre>";
+
     return $result;
   }
   public function show_history($val)
   {
-    ?>
+?>
     <tr>
       <td>
         <?php echo $val['sujet'] ?>
@@ -183,11 +200,11 @@ class User
         ?>
       </td>
     </tr>
-    <?php
+  <?php
   }
   public function show_table($val, $insc, $t_name, $f_name)
   {
-    ?>
+  ?>
     <tr>
       <td>
         <?php echo $f_name ?>
@@ -237,7 +254,7 @@ class Formation
   public function Creat_card($formations)
   {
     foreach ($formations as $formation) {
-      ?>
+    ?>
       <a class="none" href="<?php echo "formation.php?Id_formation_=" . $formation['Id_formation_'] ?>">
         <div class="card-cont">
           <div class="box">
@@ -255,7 +272,7 @@ class Formation
           </div>
         </div>
       </a>
-      <?php
+    <?php
     }
   }
   public function details($conn, $id)
@@ -279,7 +296,7 @@ class Formation
         </p>
       </div>
     </div>
-    <?php
+  <?php
   }
 }
 
@@ -295,7 +312,7 @@ class Session
 
   public function show_session($val, $insc_num, $t_name, $id_app)
   {
-    ?>
+  ?>
     <table class="table table-hover text-center">
       <thead>
         <tr>
@@ -309,7 +326,7 @@ class Session
       <tbody>
         <?php
         foreach ($val as $session) {
-          ?>
+        ?>
           <tr>
             <td>
               <?php echo $insc_num . "/" . $session['Places_max'] ?>
@@ -326,24 +343,23 @@ class Session
             <td>
               <?php
               if ($insc_num == $session['Places_max']) {
-                ?>
+              ?>
                 <a class="btn btn-danger" type="submit" name="inscription" disabled>Inscription</a>
-                <?php
+              <?php
               } else {
-                ?>
-                <a href="<?php echo "formation.php?Id_formation_=" . $session['Id_formation_'] . "&id_session=" . $session['Id_session'] . "&Id_apprenant_=" . $_SESSION['Id_apprenant_'] . "&Id_Formateur=" . $session['Id_Formateur'] ?>"
-                  class="btn btn-success" type="submit" name="inscription">Inscription</a>
-                <?php
+              ?>
+                <a href="<?php echo "formation.php?Id_formation_=" . $session['Id_formation_'] . "&id_session=" . $session['Id_session'] . "&Id_apprenant_=" . $_SESSION['Id_apprenant_'] . "&Id_Formateur=" . $session['Id_Formateur'] ?>" class="btn btn-success" type="submit" name="inscription">Inscription</a>
+              <?php
               }
               ?>
             </td>
           </tr>
-          <?php
+        <?php
         }
         ?>
       </tbody>
     </table>
-    <?php
+<?php
   }
 }
 
@@ -375,7 +391,6 @@ class Inscription
     $succes = "your inscription to this session is done perfectly";
     return $succes;
   }
-
 }
 
 class Formateur

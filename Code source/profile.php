@@ -95,7 +95,7 @@ $info = $user->user_info($conn, $Id_apprenant);
                             href="<?php echo "profile.php?Id_apprenant=" . $Id_apprenant ?>"><i class="fa fa-user"
                                 style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Profil</a></div>
                     <div class="sb-sidenav-menu-nested nav"><a class="nav-link" href="inscription.php"><i class="fa fa-pencil"
-                                style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions</a></div>
+                                style="padding-right: 0px;margin: 8px;margin-left: -1px;"></i>Inscriptions & History</a></div>
         
                 </div>
                 <div class="sb-sidenav-footer"></div>
