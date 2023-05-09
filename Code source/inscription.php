@@ -157,7 +157,7 @@ include("class.php");
                         ?>
                     </tbody>
                 </table>
-                <h2>à venir </h2>
+                <h2>à venir </h2>  
                 <table class="table table-hover text-center">
                     <thead>
                         <tr>
