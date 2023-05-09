@@ -3,7 +3,7 @@
   top: 0%;
   left: 50%;
   transform: translate(-50%, 50%);
-  background: #2f3640;
+  background: #B4DDE3;
   height: 40px;
   border-radius: 40px;
 }
@@ -15,7 +15,7 @@
 
 .searchBox:hover > .searchButton {
   background: white;
-  color: #2f3640;
+  color: #B4DDE3;
 }
 
 .searchButton {
@@ -24,7 +24,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #2f3640;
+  background: #B4DDE3;
   display: flex;
   justify-content: center;
   align-items: center;
